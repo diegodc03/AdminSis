@@ -1,0 +1,47 @@
+opendir(my $skel_fh, $skel_dir) || die "Failed to open skel directory: $!";
+while (my $entry = readdir($skel_fh)) {
+    next if $entry eq '.' || $entry eq '..';  # Skip hidden files
+    
+        my $source = "$skel_dir/$entry";
+        my $destination = "$new_user_home/$entry";
+        copy($source, $destination) || warn "Failed to copy $source to $destination: $!";
+        chown($uid, $gid, "$homeRoute/$entry");
+
+}
+closedir($skel_fh);
+
+
+
+
+
+
+# Function to set permissions for files and directories
+
+sub set_permissions {
+    my $file = $_;
+    my $mode = -d $file ? 0755 : 0644;  # Establecer permisos de directorio o archivo
+
+    chmod $mode, $file || warn "Failed to set permissions for $file: $!";
+}
+
+
+
+dircopy($skel_dir, $new_user_home) || die "Failed to copy $skel_dir to $new_user_home: $!";
+
+find(\&set_permissions, $new_user_home);
+
+
+
+
+
+
+
+#Last one, introduce the user in the sudoers file
+my $sudoers = "/etc/sudoers";
+open(my $sudoers_fh, '>>', $sudoers) || die "Failed to open sudoers file: $!";
+print $sudoers_fh "$username ALL=(ALL) ALL\n";
+close($sudoers_fh) || warn "Failed to close sudoers file: $!";
+chmod(0440, $sudoers) || warn "Failed to change permissions of sudoers file: $!";
+
+
+
