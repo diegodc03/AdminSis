@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #Aplicar cuota a un usuario
 #------------------------------------------------------------
-# Script to create a Quota in Linux (debian 12)
+# Script to delete a Quota in Linux (debian 12)
 
 #Author:    Diego de Castro Merillas    [diegodecatro@usal.es]
 
@@ -93,36 +93,18 @@ if($aux == 0){
     exit();
 }
 
-print "If you do not apply any limit, enter 0\n";
-#We ask the user for the quota hard limit
-print "Enter the quota in MB: ";
-my $hard = <STDIN>;
+#We apply the quota to delete it
+my ($block_set, $inode_set) = Quota::setqlim($device, $electedUID, 0, 0, 0, 0, 0, 0);
 
 
-#We ask the user for the quota soft limit
-print "Enter the soft limit in MB: ";
-my $soft = <STDIN>;
-
-#We ask the number of inodes soft
-print "Enter the number of inodes: ";
-my $softInodes = <STDIN>;
-
-#We ask the number of inodes hard
-print "Enter the number of inodes: ";
-my $hardInodes = <STDIN>;
-
-#We apply the quota
-my ($block_set, $inode_set) = Quota::setqlim($device, $electedUID, $soft, $hard, $softInodes, $hardInodes, 0, 0);
 
 
-if ($block_set && $inode_set) {
+
+if ($block_set || $inode_set) {
     print "Cuotas establecidas correctamente para $username .\n";
 } else {
     print "Error al establecer las cuotas para $username: $!\n";
 }
-
-
-
 
 
 
