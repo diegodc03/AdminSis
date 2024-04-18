@@ -1,0 +1,83 @@
+    5035  100.00%    1510.94re  100.00%      15.52cp  100.00%         0avio   1466208k
+    2903   57.66%      25.63re    1.70%      10.23cp   65.92%         0avio      9504k   perl
+       5    0.10%      13.37re    0.88%       1.08cp    6.98%         0avio    627968k   TaskCon~ller #0
+      65    1.29%      26.28re    1.74%       1.00cp    6.44%         0avio  11714435k   ***other*
+      12    0.24%      16.29re    1.08%       0.52cp    3.34%         0avio    101075k   gdbus
+      29    0.58%      66.91re    4.43%       0.48cp    3.08%         0avio   1040905k   IPC I/O Child
+       7    0.14%      28.57re    1.89%       0.39cp    2.50%         0avio   2421559k   RemoteLzyStream
+       4    0.08%      38.47re    2.55%       0.37cp    2.37%         0avio    610496k   StyleThread#2
+       8    0.16%      54.15re    3.58%       0.24cp    1.54%         0avio    870640k   ProfilerChild
+       4    0.08%       0.30re    0.02%       0.19cp    1.20%         0avio     26186k   dpkg-deb*
+       4    0.08%       2.99re    0.20%       0.15cp    0.99%         0avio   3261696k   Isolated Web Co
+       9    0.18%       1.49re    0.10%       0.13cp    0.85%         0avio    109340k   dconf worker
+      18    0.36%      44.15re    2.92%       0.09cp    0.59%         0avio    602681k   TaskCon~ller #2
+      14    0.28%      34.88re    2.31%       0.09cp    0.57%         0avio    603246k   TaskCon~ller #3
+      64    1.27%     945.99re   62.61%       0.08cp    0.51%         0avio         0k   kworker/dying*
+      10    0.20%      25.02re    1.66%       0.07cp    0.46%         0avio    814720k   TaskCon~ller #1
+       3    0.06%       6.27re    0.42%       0.07cp    0.44%         0avio   1322155k   StyleThread#1
+       6    0.12%       6.91re    0.46%       0.06cp    0.42%         0avio    108645k   gmain
+       2    0.04%       2.02re    0.13%       0.05cp    0.34%         0avio    610560k   StreamTrans #3
+      42    0.83%       0.54re    0.04%       0.05cp    0.34%         0avio      2431k   dpkg
+       3    0.06%       0.26re    0.02%       0.05cp    0.34%         0avio     26219k   update-mime-dat
+       8    0.16%      13.29re    0.88%       0.05cp    0.30%         0avio    603344k   Worker Launcher
+       5    0.10%      12.96re    0.86%       0.04cp    0.23%         0avio     13036k   cpanm
+      11    0.22%       0.01re    0.00%       0.01cp    0.05%         0avio       834k   gzip
+      17    0.34%       0.01re    0.00%       0.01cp    0.04%         0avio      1887k   tar
+       3    0.06%       0.06re    0.00%       0.01cp    0.04%         0avio 103759872k   code
+       7    0.14%      45.50re    3.01%       0.00cp    0.02%         0avio      1998k   bash
+       3    0.06%       1.51re    0.10%       0.00cp    0.02%         0avio      4080k   systemd-hostnam
+       2    0.04%       1.17re    0.08%       0.00cp    0.02%         0avio    146648k   pool-gnome-cont
+      22    0.44%      13.05re    0.86%       0.00cp    0.01%         0avio      1487k   make
+       3    0.06%      17.50re    1.16%       0.00cp    0.01%         0avio      2308k   sudo
+       4    0.08%       0.00re    0.00%       0.00cp    0.01%         0avio     24912k   gnome-calculato
+       4    0.08%       0.00re    0.00%       0.00cp    0.00%         0avio   2251552k   firefox-esr*
+       3    0.06%       0.00re    0.00%       0.00cp    0.00%         0avio      1345k   update-desktop-
+      50    0.99%       0.01re    0.00%       0.00cp    0.00%         0avio      2546k   git
+       2    0.04%       2.22re    0.15%       0.00cp    0.00%         0avio     22896k   oosplash
+      10    0.20%       0.00re    0.00%       0.00cp    0.00%         0avio      2796k   gpg
+     663   13.17%       0.04re    0.00%       0.00cp    0.00%         0avio   8673573k   code*
+     219    4.35%      13.07re    0.86%       0.00cp    0.00%         0avio       645k   sh
+     144    2.86%       0.00re    0.00%       0.00cp    0.00%         0avio      1661k   unzip
+     134    2.66%       0.48re    0.03%       0.00cp    0.00%         0avio   3004404k   Chroot Helper*
+     128    2.54%       0.00re    0.00%       0.00cp    0.00%         0avio       587k   true
+      76    1.51%       0.00re    0.00%       0.00cp    0.00%         0avio      2206k   bash*
+      46    0.91%       0.00re    0.00%       0.00cp    0.00%         0avio      1382k   touch
+      46    0.91%       0.00re    0.00%       0.00cp    0.00%         0avio      1372k   chmod
+      23    0.46%       0.00re    0.00%       0.00cp    0.00%         0avio      1366k   pwd
+      19    0.38%       0.00re    0.00%       0.00cp    0.00%         0avio      3846k   apt-config
+      17    0.34%       0.04re    0.00%       0.00cp    0.00%         0avio      2636k   dbus-daemon*
+      16    0.32%       0.00re    0.00%       0.00cp    0.00%         0avio     89525k   seahorse*
+      12    0.24%       0.00re    0.00%       0.00cp    0.00%         0avio      1766k   gpgconf
+      11    0.22%       0.00re    0.00%       0.00cp    0.00%         0avio      1373k   rm
+      10    0.20%       0.00re    0.00%       0.00cp    0.00%         0avio    231808k   soffice.bin*
+       9    0.18%       0.00re    0.00%       0.00cp    0.00%         0avio      1427k   ls
+       8    0.16%       0.00re    0.00%       0.00cp    0.00%         0avio       644k   libreoffice*
+       6    0.12%       0.00re    0.00%       0.00cp    0.00%         0avio      1612k   cp
+       6    0.12%       0.00re    0.00%       0.00cp    0.00%         0avio      1611k   mv
+       6    0.12%       0.00re    0.00%       0.00cp    0.00%         0avio       869k   dirname
+       5    0.10%       0.00re    0.00%       0.00cp    0.00%         0avio      1303k   grep
+       4    0.08%       0.00re    0.00%       0.00cp    0.00%         0avio      4106k   systemctl
+       4    0.08%       0.00re    0.00%       0.00cp    0.00%         0avio      2090k   gpgsm
+       4    0.08%       0.00re    0.00%       0.00cp    0.00%         0avio      1385k   date
+       4    0.08%       0.00re    0.00%       0.00cp    0.00%         0avio      1376k   dircolors
+       4    0.08%       0.00re    0.00%       0.00cp    0.00%         0avio       994k   basename
+       3    0.06%      17.41re    1.15%       0.00cp    0.00%         0avio      2548k   sudo*
+       3    0.06%      14.98re    0.99%       0.00cp    0.00%         0avio      1365k   anacron
+       3    0.06%       0.00re    0.00%       0.00cp    0.00%         0avio       840k   bwrap
+       3    0.06%       0.00re    0.00%       0.00cp    0.00%         0avio       840k   bwrap*
+       3    0.06%       0.00re    0.00%       0.00cp    0.00%         0avio       617k   run-parts
+       2    0.04%      16.87re    1.12%       0.00cp    0.00%         0avio      1807k   su
+       2    0.04%       0.19re    0.01%       0.00cp    0.00%         0avio      1828k   dpkg-deb
+       2    0.04%       0.03re    0.00%       0.00cp    0.00%         0avio       644k   apt.systemd.dai
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio       644k   acct
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio      4647k   exim4
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio      1652k   cron*
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio     12480k   gsf-office-thum
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio    440832k   nautilus*
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio     21872k   osl_executeProc*
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio      4647k   exim4*
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio       851k   sed
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio       845k   sa
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio       644k   which
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio       621k   paperconf
+       2    0.04%       0.00re    0.00%       0.00cp    0.00%         0avio       621k   uname
