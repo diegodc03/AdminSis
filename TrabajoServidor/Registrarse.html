@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regisro</title>
+</head>
+<style>
+    body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+    header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            color: #ffd700; /* Cambia el color al pasar el ratón */
+        }
+        .content {
+            padding: 20px;
+        }
+</style>
+<body>
+    <header>
+        <h1>Mi Sitio Web</h1>
+        <nav>
+            <ul>
+                <li><a href="#quienes-somos">Quienes Somos</a></li>
+                <li><a href="#envianos-email">Envíanos un Email</a></li>
+                <li><a href="#nuestros-productos">Nuestros Productos</a></li>
+                <li><a href="Registrarse.html">Registrarse</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <section id="registrarse">
+            <h2>Registrarse</h2>
+            
+            <form action=”/cgi-bin/compruebalogin.cgi” method=”post”>
+                <label for="username">Nombre de Usuario:</label><br>
+                <input type="text" id="username" name="username" required><br><br>
+        
+                <label for="password">Contraseña:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+        
+                <label for="nom@#bre">Nombre:</label><br>
+                <input type="text" id="nombre" name="name" required><br><br>
+        
+                <label for="apellidos">Apellidos:</label><br>
+                <input type="text" id="apellidos" name="secondname" required><br><br>
+        
+                <label for="email">Correo Electrónico:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+        
+                <label for="direccion">Dirección Postal:</label><br>
+                <textarea id="direccion" name="postcode" required></textarea><br><br>
+        
+                <input type="submit" value="Registrarse">
+            </form>
+        </section>
+
+
+
+
+    </div>
+
+
+</body>
+</html>
