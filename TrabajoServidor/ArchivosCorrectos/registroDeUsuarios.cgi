@@ -141,6 +141,56 @@ $mail->send(-to=>$email, -subject=>'Usuario Creado', -body=>'Usted se ha dado de
 $mail->bye;
 
 
+########################################################################################################
+#Añadir a la base de datos
+
+#Declaramos las variables de la base de datos
+my $root = "root";
+my $pass = "";
+my $host = "localhost";
+my $db_name = "usuarios";
+
+# Nos conectamos a la base de datos
+my $db = DBI->connect("DBI:MariaDB:database=$db;host=$host", $root, $pass, { RaiseError => 1, PrintError => 0 });
+
+#Hacemos la consulta
+my $consulta = $db->prepare("SELECT COUNT(*) FROM usuarios WHERE username=?");
+
+# Ejecutamos la consulta
+$consulta->execute($username);
+
+# Obtenemos el número de filas coincidentes
+my ($num_filas) = $consulta->fetchrow_array;
+
+# Verificamos si el usuario ya existe
+if ($num_filas > 0) {
+    #El usuario existe, redireccionamos al registro
+    
+    print $q->header(-type => "text/html");
+    print "<h3>El usuario ya existe</h3>";
+	print "<meta http-equiv='refresh' content='3; ../Registrarse.html'>";
+	$db->disconnect;
+
+} else {
+	#Usuario no existe, podemos crear el usuario
+
+	my $var = $dbh->prepare('INSERT INTO usuarios(username,password, name, surname, email, postcode) VALUES (?,?, ?,?,?,?,1,1,0)');
+
+	$var->execute($username,$passwd,$name,$secondname, $email, $postcode);
+
+	$db->disconnect;
+
+    print $q->header(-type => "text/html");
+    print "<h3>Usuario correcto, no existe en la base de datos</h3>";
+
+}
+
+
+
+
+
+
+
 print $q->header(-type => 'text/plain');
 print "Creado $a";
 

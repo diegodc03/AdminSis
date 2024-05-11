@@ -10,6 +10,105 @@ use warnings;
 use POSIX;
 use Linux::usermod;
 use File::Path qw(rmtree);
+use CGI::Session;
+use DBI;
+use CGI;
+use Email::Send::SMTP::Gmail;
+
+
+
+use Passwd::Unix;
+
+use MIME::Lite;
+
+#Creamos un objeto CGI
+my $cgi = CGI->new();
+
+my $session = new CGI::Session();
+
+#Creamos un array para guardar los datos de la sesión
+my @auth = $session->param;
+
+
+# Si no existen datos se saldrá ya que el usuario no tiene sesión
+if (@auth eq 0){
+
+    $session->delete();
+    $session->flush();
+    print $cgi->header("text/html");
+    print "<meta http-equiv='refresh' content='3; ../Registrarse.html'>";
+    print "<h3 style='color: red;'> No hay permisos para estar aqui, redireccionando";
+
+
+
+}elsif($session->is_expired){
+
+    $session->delete();
+    $session->flush();
+    print $cgi->header("text/html");
+    print "<meta http-equiv='refresh' content='3; ../Registrarse.html'>";
+    print "<h3 style='color: red;'> Su sesión ha caducado, volverá...";
+
+
+
+}else{ #Perfecto todo
+
+    # Eliminaciómn del usuario Linux
+
+
+
+    # Eliminacion del usuario de la base de datos
+
+    my $username = $session->param('username');
+    my $email = $session->param('email');
+    
+
+    my $root = "root";
+    my $pass = "diegoCarlos123diego123";
+    my $host = "localhost";
+    my $db = "servidor";
+
+    # Nos conectamos a la base de datos
+    my $db = DBI->connect("DBI:MariaDB:database=$db;host=$host", $root, $pass, { RaiseError => 1, PrintError => 0 });
+
+    #Hacemos la consulta
+    #my $consulta = $db->prepare("SELECT COUNT(*) FROM usuarios WHERE username=?");
+    my $consulta = $db->prepare("DELETE FROM usuarios where username=? and email=?");
+
+    # Ejecutamos la consulta
+    $consulta->execute($username, $email);
+
+    $dbh->disconnect();
+
+    
+
+    #Enviar un email comunicando que el usuario ha sido correctamente dado de baja
+    my ($mail,$error)=Email::Send::SMTP::Gmail->new( -smtp=>'smtp.gmail.com',
+                                                 -login=>'upsauniversidaddevalladolid@gmail.com',
+                                                 -pass=>'paol ulvc mcbo gxkx');
+
+
+ 
+    $mail->send(-to=>$email, -subject=>'Usuario Eliminado', -body=>'Usted se ha dado de baja en el servicio Conde Y bermejo Soluciones',
+            -attachments=>'full_path_to_file');
+ 
+    $mail->bye;
+
+   
+
+    print $cgi->header("text/html");
+    print "<meta http-equiv='refresh' content='3; ../Registrarse.html'>";
+    print "<h3>Se ha eliminado el usuario</h3>";
+
+
+}
+
+
+
+
+
+
+
 
 
 
@@ -63,16 +162,7 @@ while (1) {
 
     #Aqui pon el correo que sea
 
-    my ($mail,$error)=Email::Send::SMTP::Gmail->new( -smtp=>'smtp.gmail.com',
-                                                 -login=>'upsauniversidaddevalladolid@gmail.com',
-                                                 -pass=>'paol ulvc mcbo gxkx');
-
-
- 
-    $mail->send(-to=>$email, -subject=>'Usuario Eliminado', -body=>'Usted se ha dado de baja en el servicio Conde Y bermejo Soluciones',
-            -attachments=>'full_path_to_file');
- 
-    $mail->bye;
+    
 
 
 }
