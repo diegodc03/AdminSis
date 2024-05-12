@@ -10,9 +10,9 @@ use Quota;
 use Email::Send::SMTP::Gmail;
 
 
-my $cgi = new CGI;
+my $q = CGI->new();
 
-my $username = $q->param('username');
+my $a = $q->param('username');
 my $passwd = $q->param('password');
 my $name = $q->param('name');
 my $secondname = $q->param('secondname');
@@ -63,7 +63,7 @@ else{
 #Creamos el usuario
 
 #we check if the username exists
-if(getpwnam($username)){
+if(getpwnam($a)){
     print $q->header(-type => "text/html");
 	print "Usuario Existente";
 }
@@ -73,35 +73,57 @@ if(getpwnam($username)){
 my $homeRoute = "/home/".$username."/";
 #print "The home route is $homeRoute ";
 
-
+#Añadimos los permisos de home route
+mkdir $homeRoute || print $!;
+chmod(0770, $homeRoute) || print $! ;
 
 
 # Creamos el nuevo usuario
-	Linux::usermod->add($username, $password, undef, undef, undef, $homeRoute, "/bin/bash");
-	my $user=Linux::usermod->new($username);
-	Linux::usermod->grpadd($username, $user->get('gid'));
-	my $usergroup = Linux::usermod->new($username, 1);
-
-	my $uid = $user->get('uid');
-	my $gid = $user->get('gid');
+Linux::usermod->add($username, $password, '', '', '', $homeRoute, "/bin/bash");
+my $user=Linux::usermod->new($username);
+my $uid = $user->get('uid');
+my $gid = $user->get('gid');
 
 
-
-#Crear /home y copiar las cosas de /etc/skel
-	make_path($homeRoute , { owner => $username, group => $username });
-	dircopy("/etc/skel", $dirhome);
-	chown($usercreated->get('uid'), $usergroup->get('gid'), File::Finder->in("$hoomeRoute"));
-	#chown($usercreated->get('uid'), $usergroup->get('gid'), "$dirhome/public_html.no");	
-	#chown($usercreated->get('uid'), $usergroup->get('gid'), "$dirhome/bienvenido.txt");
+# Le damos los permisos al usuario
+chown($uid, $gid, $homeRoute);
 
 
+#The last one, we copy skel to new user
+# Copy contents of /etc/skel to new user's home directory
+my $skel_dir = "/etc/skel";
+my $new_user_home = "/home/$username";
 
-#Establecer las quotas para ese usuario en /home
-	my $quotadev = Quota::getqcarg("/home");
-  	Quota::setqlim($quotadev, $uid, 61440, 81920, 0, 0);
+opendir(my $skel_fh, $skel_dir) || die "Failed to open skel directory: $!";
+while (my $entry = readdir($skel_fh)) {
+    next if $entry eq '.' || $entry eq '..';  # Skip hidden files
+    
+        my $source = "$skel_dir/$entry";
+        my $destination = "$new_user_home/$entry";
+        copy($source, $destination) || warn "Failed to copy $source to $destination: $!";
+        chown($uid, $gid, "$homeRoute/$entry");
+
+}
+closedir($skel_fh);
 
 
 
+
+#Añadimos la quota de limite fuerte de 80 MB
+my $hard = 80000;
+
+
+#We apply the quota
+my ($block_set, $inode_set) = Quota::setqlim($homeRoute, $uid, 0, $hard, 0, 0, 0, 0);
+
+
+if ($block_set && $inode_set) {
+	print $q->header(-type => "text/html");
+    print "Cuotas establecidas correctamente para $username .\n";
+} else {
+	print $q->header(-type => "text/html");
+    print "Error al establecer las cuotas para $username: $!\n";
+}
 
 
 
@@ -124,12 +146,12 @@ $mail->bye;
 
 #Declaramos las variables de la base de datos
 my $root = "root";
-my $pass = "123456";
+my $pass = "";
 my $host = "localhost";
 my $db_name = "usuarios";
 
 # Nos conectamos a la base de datos
-my $db = DBI->connect("DBI:MariaDB:database=$db_name;host=$host", $root, $pass, { RaiseError => 1, PrintError => 0 });
+my $db = DBI->connect("DBI:MariaDB:database=$db;host=$host", $root, $pass, { RaiseError => 1, PrintError => 0 });
 
 #Hacemos la consulta
 my $consulta = $db->prepare("SELECT COUNT(*) FROM usuarios WHERE username=?");
@@ -152,7 +174,7 @@ if ($num_filas > 0) {
 } else {
 	#Usuario no existe, podemos crear el usuario
 
-	my $var = $dbh->prepare('INSERT INTO usuarios(username,password, name, surname, email, postcode) VALUES (?,?,?,?,?,?,1,1,0)');
+	my $var = $dbh->prepare('INSERT INTO usuarios(username,password, name, surname, email, postcode) VALUES (?,?, ?,?,?,?,1,1,0)');
 
 	$var->execute($username,$passwd,$name,$secondname, $email, $postcode);
 
@@ -166,5 +188,10 @@ if ($num_filas > 0) {
 
 
 
+
+
+
+print $q->header(-type => 'text/plain');
+print "Creado $a";
 
 

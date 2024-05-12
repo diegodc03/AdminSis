@@ -9,10 +9,8 @@ use DBI;
 
 my $cgi = CGI->new;
 
-# Obtenemos el usuario y la contraseña de inicio de sesión
-my $usuario = $cgi->param("username");
-my $password = $cgi->param("password");
-
+my $usuario = $cgi->param("username", $cgi->param("usuario"));
+my $password = $cgi->param("password", $cgi->param("password"));
 
 #Filtrar Datos
 if($usuario !~ /^[a-zA-Z0-9]+$/ or $password !~ /^[a-zA-Z0-9]+$/){

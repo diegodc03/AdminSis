@@ -22,7 +22,7 @@ use Passwd::Unix;
 use MIME::Lite;
 
 #Creamos un objeto CGI
-my $cgi = new CGI;
+my $cgi = CGI->new();
 
 my $session = new CGI::Session();
 
@@ -54,14 +54,6 @@ if (@auth eq 0){
 }else{ #Perfecto todo
 
     # Eliminaciómn del usuario Linux
-    Linux::usermod->del($username);
-
-    my $dir = "/home/".$username;
-
-    # Eliminación del grupo asociado al usuario
-    Linux::usermod->grpdel($username) if exists $groups{$username};
-
-    rmtree($dir) or die "Couldn't delete $dir: $!";
 
 
 
@@ -85,6 +77,7 @@ if (@auth eq 0){
 
     # Ejecutamos la consulta
     $consulta->execute($username, $email);
+
     $dbh->disconnect();
 
     
