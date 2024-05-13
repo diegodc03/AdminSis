@@ -8,6 +8,9 @@ use Linux::usermod;
 use File::Copy;
 use Quota;
 use Email::Send::SMTP::Gmail;
+use File::Path qw(make_path remove_tree);
+use File::Copy::Recursive qw(dircopy);
+use File::Finder;
 
 
 my $cgi = new CGI;
@@ -64,7 +67,6 @@ else{
 
 #we check if the username exists
 if(getpwnam($username)){
-    print $q->header(-type => "text/html");
 	print "Usuario Existente";
 }
 
@@ -89,23 +91,20 @@ my $homeRoute = "/home/".$username."/";
 
 #Crear /home y copiar las cosas de /etc/skel
 	make_path($homeRoute , { owner => $username, group => $username });
-	dircopy("/etc/skel", $dirhome);
-	chown($usercreated->get('uid'), $usergroup->get('gid'), File::Finder->in("$hoomeRoute"));
-	#chown($usercreated->get('uid'), $usergroup->get('gid'), "$dirhome/public_html.no");	
-	#chown($usercreated->get('uid'), $usergroup->get('gid'), "$dirhome/bienvenido.txt");
-
-
+	dircopy("/etc/skel", $homeRoute);
+    
+	chown($uid, $gid, $homeRoute);  # Cambiar el propietario y grupo del directorio
+    chown($uid, -1, "$homeRoute/*");  # Cambiar el propietario de los archivos dentro del directorio    
+    chown(-1, $gid, "$homeRoute/*");  # Cambiar el grupo de los archivos dentro del directorio
+  
 
 #Establecer las quotas para ese usuario en /home
-	my $quotadev = Quota::getqcarg("/home");
+	my $quotadev = Quota::getqcarg("/");
   	Quota::setqlim($quotadev, $uid, 61440, 81920, 0, 0);
 
 
+#####################################################################################################
 
-
-
-
-#Aqui pon el correo que sea
 
 my ($mail,$error)=Email::Send::SMTP::Gmail->new( -smtp=>'smtp.gmail.com',
                                                  -login=>'upsauniversidaddevalladolid@gmail.com',
@@ -119,11 +118,12 @@ $mail->send(-to=>$email, -subject=>'Usuario Creado', -body=>'Usted se ha dado de
 $mail->bye;
 
 
+
 ########################################################################################################
 #Añadir a la base de datos
 
 #Declaramos las variables de la base de datos
-my $root = "root";
+my $root = "adminBase";
 my $pass = "123456";
 my $host = "localhost";
 my $db_name = "usuarios";

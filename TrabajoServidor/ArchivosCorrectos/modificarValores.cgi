@@ -3,15 +3,18 @@
 #Aqui tenemos que cambiar los datos del usuario que quiera modificarlos
 #Va a venir de un forms, en el cual cogeremos los valores y los añadiremos
 
+
 use strict;
 use warnings;
 use CGI;
-use CGI::Session;
 use DBI;
 use Linux::usermod;
 use File::Copy;
 use Quota;
 use Email::Send::SMTP::Gmail;
+use File::Path qw(make_path remove_tree);
+use File::Copy::Recursive qw(dircopy);
+use File::Finder;
 
 
 
@@ -61,14 +64,13 @@ if($session->is_expired or !$loggedUser){
         print "<h3>Los tipos de datos introducidos no son correctos</h3>";      
     }
 
-    #Declaramos las variables de la base de datos
-    my $root = "root";
-    my $pass = "";
+    my $root = "adminBase";
+    my $pass = "123456";
     my $host = "localhost";
     my $db_name = "usuarios";
 
     # Nos conectamos a la base de datos
-    my $db = DBI->connect("DBI:MariaDB:database=$db;host=$host", $root, $pass, { RaiseError => 1, PrintError => 0 });
+    my $db = DBI->connect("DBI:MariaDB:database=$db_name;host=$host", $root, $pass, { RaiseError => 1, PrintError => 0 });
 
     #Hacemos la consulta
     my $consulta = $db->prepare("SELECT COUNT(*) FROM usuarios WHERE username=? and email=?");
@@ -83,7 +85,7 @@ if($session->is_expired or !$loggedUser){
     if ($num_filas > 0) {
         #Podemos cambiar los datos
         
-        my $cosulta = $db->prepare("UPDATE nombre_de_tabla SET passwd = ?, name = ?, secondname = ?, email = ?, postcode = ? WHERE username = ?")
+        my $cosulta = $db->prepare("UPDATE usuario SET passwd = ?, name = ?, secondname = ?, email = ?, postcode = ? WHERE username = ?")
 
         $consulta->execute($passwd, $name, $secondname, $email, $postcode, $usuarioInicioSesion)
         

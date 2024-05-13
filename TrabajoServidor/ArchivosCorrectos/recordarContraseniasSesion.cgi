@@ -39,7 +39,7 @@ if($contrasenia1 ne $contrasenia2){
     #Añadir a la base de datos
 
     #Declaramos las variables de la base de datos
-    my $root = "root";
+    my $root = "adminBase";
     my $pass = "123456";
     my $host = "localhost";
     my $db_name = "usuarios";
@@ -48,10 +48,10 @@ if($contrasenia1 ne $contrasenia2){
     my $db = DBI->connect("DBI:MariaDB:database=$db_name;host=$host", $root, $pass, { RaiseError => 1, PrintError => 0 });
 
     #Hacemos la consulta
-    my $consulta = $db->prepare("SELECT COUNT(*) FROM usuarios WHERE username=?");
+    my $consulta = $db->prepare("SELECT COUNT(*) FROM usuarios WHERE email=?");
 
     # Ejecutamos la consulta
-    $consulta->execute($username);
+    $consulta->execute($email);
 
     # Obtenemos el número de filas coincidentes
     my ($num_filas) = $consulta->fetchrow_array;
@@ -69,9 +69,9 @@ if($contrasenia1 ne $contrasenia2){
         
 
         # Preparar y ejecutar la consulta SQL para actualizar la contraseña
-        my $sql = "UPDATE usuarios SET password = ? where username = ? and email = ?";  # Ajusta el nombre del campo si es diferente
+        my $sql = "UPDATE usuarios SET password = ? where email = ?";  # Ajusta el nombre del campo si es diferente
         my $sth = $db->prepare($sql);
-        $sth->execute($contrasenia1, $username, $email);
+        $sth->execute($contrasenia1, $email);
 
         # Desconectar la base de datos
         $db->disconnect();

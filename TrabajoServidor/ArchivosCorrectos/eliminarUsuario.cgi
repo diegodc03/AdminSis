@@ -5,15 +5,18 @@
     # Eliminar como usuario
     
 
+
 use strict;
 use warnings;
-use POSIX;
-use Linux::usermod;
-use File::Path qw(rmtree);
-use CGI::Session;
-use DBI;
 use CGI;
+use DBI;
+use Linux::usermod;
+use File::Copy;
+use Quota;
 use Email::Send::SMTP::Gmail;
+use File::Path qw(make_path remove_tree);
+use File::Copy::Recursive qw(dircopy);
+use File::Finder;
 
 
 
@@ -71,13 +74,13 @@ if (@auth eq 0){
     my $email = $session->param('email');
     
 
-    my $root = "root";
-    my $pass = "diegoCarlos123diego123";
+    my $root = "adminBase";
+    my $pass = "123456";
     my $host = "localhost";
-    my $db = "servidor";
+    my $db_name = "usuarios";
 
     # Nos conectamos a la base de datos
-    my $db = DBI->connect("DBI:MariaDB:database=$db;host=$host", $root, $pass, { RaiseError => 1, PrintError => 0 });
+    my $db = DBI->connect("DBI:MariaDB:database=$db_name;host=$host", $root, $pass, { RaiseError => 1, PrintError => 0 });
 
     #Hacemos la consulta
     #my $consulta = $db->prepare("SELECT COUNT(*) FROM usuarios WHERE username=?");
@@ -85,7 +88,7 @@ if (@auth eq 0){
 
     # Ejecutamos la consulta
     $consulta->execute($username, $email);
-    $dbh->disconnect();
+    $db->disconnect();
 
     
 
