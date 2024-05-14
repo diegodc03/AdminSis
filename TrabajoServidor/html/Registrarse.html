@@ -54,7 +54,7 @@
         <section id="registrarse">
             <h2>Registrarse</h2>
             
-            <form action=”/cgi-bin/compruebalogin.cgi” method=”post”>
+            <form action=”/cgi-bin/compruebalogin.cgi” method=”post” onsubmit="return validarFormulario()">
                 <label for="username">Nombre de Usuario:</label><br>
                 <input type="text" id="username" name="username" required><br><br>
         
@@ -62,21 +62,23 @@
                 <input type="password" id="password" name="password" required><br><br>
         
                 <label for="nombre">Nombre:</label><br>
-                <input type="text" id="nombre" name="name" required><br><br>
+                <input type="text" id="name" name="name" required><br><br>
         
                 <label for="apellidos">Apellidos:</label><br>
-                <input type="text" id="apellidos" name="secondname" required><br><br>
+                <input type="text" id="secondname" name="secondname" required><br><br>
         
                 <label for="email">Correo Electrónico:</label><br>
                 <input type="email" id="email" name="email" required><br><br>
         
                 <label for="direccion">Dirección Postal:</label><br>
-                <textarea id="direccion" name="postcode" required></textarea><br><br>
+                <textarea id="postcode" name="postcode" required></textarea><br><br>
         
-                <input type="submit" value="Registrarse">
+                <input type="submit" value="Registrarse" name="submit">
             </form>
-        </section>
+            <span id="mensaje-error" style="color: red;"></span> <!-- Agrega este elemento para mostrar mensajes de error -->
+            
 
+        </section>
 
 
 
@@ -85,3 +87,46 @@
 
 </body>
 </html>
+
+
+<script>
+    function validarFormulario() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var correo = document.getElementById("email").value;
+        var postcode = document.getElementById("postcode").value;
+        var mensajeError = document.getElementById("mensaje-error");
+        
+        // Validación del nombre
+        if (nombre.length < 2) {
+            mensajeError.textContent = "El nombre debe tener al menos 2 caracteres.";
+            return false;
+        }
+        
+        // Validación de la contraseña (al menos una letra mayúscula, una letra minúscula y un número)
+        var hasMayuscula = /[A-Z]/.test(password);
+        var hasMinuscula = /[a-z]/.test(password);
+        var hasNumero = /[0-9]/.test(password);
+        if (!hasMayuscula || !hasMinuscula || !hasNumero) {
+            mensajeError.textContent = "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número.";
+            return false;
+        }
+
+        // Validación del correo electrónico
+        if (!correo.includes("@")) {
+            mensajeError.textContent = "Ingrese un correo electrónico válido.";
+            return false;
+        }
+        
+        // Validación del código postal (solo caracteres numéricos)
+        if (!/^\d+$/.test(codigoPostal)) {
+            mensajeError.textContent = "El código postal debe contener solo caracteres numéricos.";
+            return false;
+        }
+
+        
+        // Si todos los campos son válidos, se permite el envío del formulario
+        mensajeError.textContent = ""; // Limpiar el mensaje de error si todos los campos son válidos
+        return true;
+    }
+    </script>

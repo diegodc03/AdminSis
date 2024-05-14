@@ -8,7 +8,6 @@
     # COmo hago que cuando redifirgja tenga los datos del correo anteriormente mandado
 
 
-
 use strict;
 use warnings;
 use CGI;
@@ -63,7 +62,7 @@ if ($cgi->param('submit')) {
     my $token = $cgi->param('token');
     
     if ($token) {
-        # Aquí deberías verificar si el token es válido en tu base de datos
+        
         #Vamos a la base de datos y se accede
             #Se comparan el token, y si es el mismo entonces se accederá    
             # Almacenar el token en la base de datos junto con el correo electrónico del usuario

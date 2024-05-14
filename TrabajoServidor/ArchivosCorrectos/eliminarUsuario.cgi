@@ -92,14 +92,14 @@ if (@auth eq 0){
 
     
 
-    #Enviar un email comunicando que el usuario ha sido correctamente dado de baja
     my ($mail,$error)=Email::Send::SMTP::Gmail->new( -smtp=>'smtp.gmail.com',
-                                                 -login=>'upsauniversidaddevalladolid@gmail.com',
-                                                 -pass=>'paol ulvc mcbo gxkx');
+                                                 -login=>'servicioscondeydiego@gmail.com',
+                                                 -pass=>'gyjn owfz lqlq htzv');
 
-
+    my $message = "Haz clic en el siguiente enlace para crear el usuario: ";
+    $message .= "http://example.com/reset_password.pl?token=$token";
  
-    $mail->send(-to=>$email, -subject=>'Usuario Eliminado', -body=>'Usted se ha dado de baja en el servicio Conde Y bermejo Soluciones',
+    $mail->send(-to=>$email, -subject=>'Creacion de usuario', -body=>$message,
             -attachments=>'full_path_to_file');
  
     $mail->bye;

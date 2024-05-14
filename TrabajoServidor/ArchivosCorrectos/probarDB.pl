@@ -17,7 +17,7 @@ my $postcode = "12345";
     my $root = "adminBase";
     my $pass = "123456";
     my $host = "localhost";
-    my $db_name = "na";
+    my $db_name = "servidor";
 
     # Nos conectamos a la base de datos
     my $db = DBI->connect("DBI:MariaDB:database=$db_name;host=$host", $root, $pass, { RaiseError => 1, PrintError => 0 });
