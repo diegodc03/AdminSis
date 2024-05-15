@@ -36,6 +36,32 @@
         .content {
             padding: 20px;
         }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            color: #333;
+        }
+        .section p {
+            color: #555;
+        }
+        .rectangulo {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border: 2px solid #2980b9;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .rectangulo:hover {
+            background-color: #2980b9; /* Cambia el color al pasar el ratón */
+        }
     </style>
 </head>
 <body>
@@ -46,27 +72,35 @@
                 <li><a href="#quienes-somos">Quienes Somos</a></li>
                 <li><a href="#envianos-email">Envíanos un Email</a></li>
                 <li><a href="#nuestros-productos">Nuestros Productos</a></li>
-                <li><a href="Registrarse.html">Registrarse</a></li>
+                <li><a href="login.html">Iniciar Sesión</a></li>
+                <li><a href="register.html">Registrarse</a></li>
             </ul>
         </nav>
     </header>
     <div class="content">
-        <section id="quienes-somos">
+        
+        <section id="quienes-somos" class="section">
             <h2>Quienes Somos</h2>
-            <p>Somos una empresa dedicada a...</p>
+            <p>Somos una empresa dedicada a brindar soluciones tecnológicas innovadoras para satisfacer las necesidades de nuestros clientes. Con más de una década de experiencia en el mercado, nos comprometemos a ofrecer productos y servicios de la más alta calidad.</p>
         </section>
-        <section id="envianos-email">
+        
+        <section id="envianos-email" class="section">
             <h2>Envíanos un Email</h2>
             <p>Puedes contactarnos a través de nuestro correo electrónico...</p>
         </section>
-        <section id="nuestros-productos">
+        
+        <section id="nuestros-productos" class="section">
             <h2>Nuestros Productos</h2>
             <p>Descubre nuestra amplia gama de productos...</p>
         </section>
-        <section id="registrarse">
+        
+        <section id="registrarse" class="section">
             <h2>Registrarse</h2>
             <p>Regístrate para obtener acceso a contenido exclusivo...</p>
+            <!-- Botón para volver al index.html -->
+            <a class="rectangulo" href="index.html">Volver al Index</a>
         </section>
+    
     </div>
 </body>
 </html>
