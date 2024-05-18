@@ -1,0 +1,10 @@
+[Unit]
+Description=Demonio simple para tareas con usuarios
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/sbin/ficheroDemonio/demonio.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

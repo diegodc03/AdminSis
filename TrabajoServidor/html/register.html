@@ -30,7 +30,7 @@
         <article>
             <section>
                 <a class="rectangulo" href="index.html">Volver a la página principal</a>
-                <form action=”/cgi-bin/registroDeUsuarios.cgi” method=”post”  id="register">
+                <form action="/cgi-bin/registroDeUsuarios.cgi" method="post"  id="register">
                     <h1>Registrate</h1>
                    
                     <input type="text" id="username" name="username" placeholder="Nombre De Usuario" required><br>                 
@@ -39,6 +39,13 @@
                     <input type="text" id="secondname" name="secondname" placeholder="Apellidos" required><br>
                     <input type="email" id="email" name="email" placeholder="Correo electr&oacute;nico" required><br>
                     <input id="postcode" name="postcode" placeholder="Código Postal" required></input><br>
+	   	    <!-- Agregar selección de tipo de usuario -->
+    		    <label for="user_type">Tipo de usuario:</label>
+    		    <select id="user_type" name="user_type">
+        		<option value="profesor">Profesor</option>
+        		<option value="alumno">Alumno</option>
+    	 	    </select><br>		    
+
             
                     <input type="submit" value="Registrarse" name="submit">
 

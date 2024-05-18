@@ -28,25 +28,21 @@
 <body>
     <main>
         <article>
-            <a class="rectangulo" href="index.html">Volver a la página principal</a>
             <section>
-                <form action="/" method="POST">
-                    
-                    <h1>Inicia Sesion</h1>
-                    <img src="icons-social/facebook.svg" title="Inicia Sesion con Facebook" alt="Inicia Sesion con Facebook">
-                    <img src="icons-social/google.svg" title="Inicia Sesion con Google" alt="Inicia Sesion con Google">
-                    <img src="icons-social/twitter.svg" title="Inicia Sesion con Twitter" alt="Inicia Sesion con Twitter">
-                    <img src="icons-social/github.svg" title="Inicia Sesion con GitHub" alt="Inicia Sesion con GitHub">
-
-                    <input type="email" name="email" placeholder="Correo electr&oacute;nico"><br/>
-                    <input type="password" name="password" placeholder="Contrase&ntilde;a"><br/>
-                    <button type="submit">Entrar</button>
+                <a class="rectangulo" href="index.html">Volver a la página principal</a>
+                <form action="/cgi-bin/iniciarSesion.cgi" method="post"  id="register">
+                    <h1>Inciar Sesión</h1>
+                   
+                    <input type="text" id="username" name="username" placeholder="Nombre De Usuario" required><br>                 
+                    <input type="password" id="password" name="password" placeholder="Contrase&ntilde;a" required><br>
                     <button type="reset">Limpiar</button>
 
+                    <button type="submit" value="Registrarse" name="submit">Logging</button>
                     <p>Aun no tienes cuenta ?   <a href="register.html">Registrate</a></p>
-                    <p>Has olvidado la contraseña? <a href="OlvidoDeContraseña.html">Pulse aquí</a></p>
-
+                    <p>Has olvidado la contraseña? <a href="olvidoDeContrasenia.html">Pulse aquí</a></p>
+                        
                 </form>
+                    
             </section>
         </article>
     </main>

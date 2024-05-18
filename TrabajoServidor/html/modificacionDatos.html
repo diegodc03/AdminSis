@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Datos del Usuario</title>
+</head>
+<body>
+
+        <main>
+            <article>
+                <section>
+                    
+                    <title>Modificar valores</title>
+                                        
+                    <form action="/cgi-bin/modificarValores.cgi" method="post"  id="register">
+                        <h5>
+                            Modifique los valores que usted quira.
+                        </h5>
+                       
+                        <input type="text" id="name" name="name" placeholder="Nombre" ><br>
+                        <input type="text" id="secondname" name="secondname" placeholder="Apellidos" ><br>
+                        <input type="email" id="email" name="email" placeholder="Correo electr&oacute;nico" ><br>
+                        <input id="postcode" name="postcode" placeholder="Código Postal"></input><br>
+                        <label for="user_type">Tipo de usuario:</label>
+                        <select id="user_type" name="user_type">
+			    <option value=""></option>
+                            <option value="profesor">Profesor</option>
+                            <option value="alumno">Alumno</option>
+                        </select><br>
+
+                        <input type="submit" value="Modificar Valores" name="submit">
+    
+                       
+                    </form>
+                </section>
+            </article>
+        </main>
+        
+</body>
+</html>
